@@ -56,11 +56,15 @@ export class TableVO {
 }
 
 export class RowVO {
-    public readonly values: ReadonlyArray<string>;
+    public readonly cells: ReadonlyArray<CellVO>;
     public readonly len: Number;
 
     constructor(values: Array<string>) {
-        this.values = copyArrayShallow(values);
+        this.cells = values.map(val => new CellVO(val));
         this.len = values.length
     }
+}
+
+export class CellVO {
+    constructor(public readonly value: string) {}
 }

@@ -24,7 +24,7 @@ export class SheetConverter {
 
     public static toSheetDto(sheet: SheetVO): SheetDto{
         return new SheetDto(sheet.table.rows.map(row => {
-            return copyArrayShallow(row.values)
+            return row.cells.map(cell => cell.value)
         }), sheet.colAlign.map(align => {
             switch(align){
                 case AlignType.RIGHT:
