@@ -63,34 +63,21 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
     
     private getHtmlForWebview(webview: vscode.Webview): string {
 		// Local path to script and css for the webview
-		const scriptMainUri = webview.asWebviewUri(vscode.Uri.file(
-			path.join(this.context.extensionPath, 'media', 'main.js')
-		));
 		const scriptUri = webview.asWebviewUri(vscode.Uri.file(
-			path.join(this.context.extensionPath, 'media', 'handsontable.full.min.js')
+			path.join(this.context.extensionPath, 'media', 'bundle.js')
 		));
-		const styleMainUri = webview.asWebviewUri(vscode.Uri.file(
-			path.join(this.context.extensionPath, 'media', 'handsontable.full.min.css')
-		));
-		const styleIconUri = webview.asWebviewUri(vscode.Uri.file(
-			path.join(this.context.extensionPath, 'media', 'a-table-icon.css')
-		));
-
+		
 		return /* html */`
 			<!DOCTYPE html>
 			<html lang="en">
 			<head>
 				<meta charset="UTF-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-				<link href="${styleMainUri}" rel="stylesheet" />
-
 				<title>Cat Scratch</title>
 			</head>
 			<body>
 				<div id="table"></div>
 				<script src="${scriptUri}"></script>
-				<script src="${scriptMainUri}"></script>
 			</body>
 			</html>`;
 	}
