@@ -1,9 +1,9 @@
-import { TextFile } from "./textFile";
+import { TextFileVO } from "./textFile";
 import { copyArrayShallow } from "./util";
 
 
 export interface ISheetFactory{
-    create(text: TextFile): SheetVO
+    create(text: TextFileVO): SheetVO
 }
 
 export class SheetVO {

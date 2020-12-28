@@ -1,8 +1,9 @@
-import { TextFile } from "../domain/textFile";
+import { TextFileVO } from "../domain/textFile";
+import { TextDto } from "../transfer/text";
 
 export interface ITextGateway{
-    read(): TextFile,
-    save(text: TextFile): void,
+    read(): TextDto,
+    save(text: TextDto): void,
 }
 
 

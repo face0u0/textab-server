@@ -1,4 +1,5 @@
 import { SheetVO } from "../domain/sheet";
+import { SheetDto } from "../transfer/sheet";
 import { ITextGateway } from "./repository";
 
 export class SheetUseCase{
@@ -6,15 +7,17 @@ export class SheetUseCase{
     constructor(private readonly editorView: EditorView, private readonly gateway: ITextGateway){}
 
     reflectToView(sheet: SheetVO){
-        this.gateway.save(sheet)
+        this.gateway.save()
     }
 
-    reflectToGateway()
+    reflectToGateway(){
+
+    }
 
 }
 
 export interface EditorView {
 
-    update(sheet: SheetVO): void
+    update(sheet: SheetDto): void
 }
 

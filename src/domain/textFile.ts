@@ -1,7 +1,7 @@
 import { copyArrayShallow } from "./util";
 
 
-export class TextFile {
+export class TextFileVO {
 
     public readonly lines: ReadonlyArray<string>;
 

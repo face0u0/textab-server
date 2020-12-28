@@ -1,16 +1,16 @@
 import { latexParser } from "latex-utensils";
-import { TextFile } from "../../domain/textFile";
+import { TextFileVO } from "../../domain/textFile";
 import { TableVO, SheetVO, AlignType, RowVO, ISheetFactory } from "../../domain/sheet";
 
 export class LatexSheetFactory implements ISheetFactory {
-    public create(text: TextFile): SheetVO{
+    public create(text: TextFileVO): SheetVO{
         return LatexParser.parse(text)
     }
 }
 
 class LatexParser{
 
-    public static parse(text: TextFile): SheetVO{
+    public static parse(text: TextFileVO): SheetVO{
         const joined = text.getSource();
         const tokens = latexParser.parse(joined)
                 

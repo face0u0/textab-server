@@ -1,13 +1,13 @@
 import { AlignType, SheetVO } from "../domain/sheet";
 import { copyArrayShallow } from "../domain/util";
 
-export class SheetSerialize{
+export class SheetDto{
     constructor(public readonly table: Array<Array<string>>, public readonly align: Array<string>){}
 }
 
-export class SheetConverter{
+export class SheetConverter {
 
-    public static toSheetVO(SheetSerialize: SheetSerialize): SheetVO{
+    public static toSheetVO(SheetSerialize: SheetDto): SheetVO{
         return SheetVO.fromStringArray(SheetSerialize.table, SheetSerialize.align.map(align => {
             switch(align){
                 case 'r':
@@ -22,8 +22,8 @@ export class SheetConverter{
         }))
     }
 
-    public static toSheetSerialize(sheet: SheetVO): SheetSerialize{
-        return new SheetSerialize(sheet.table.rows.map(row => {
+    public static toSheetSerialize(sheet: SheetVO): SheetDto{
+        return new SheetDto(sheet.table.rows.map(row => {
             return copyArrayShallow(row.values)
         }), sheet.colAlign.map(align => {
             switch(align){
