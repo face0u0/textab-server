@@ -10,14 +10,19 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:formulize.helloWorld"
+		"onCustomEditor:formulize.table"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
+		"customEditors": [
 			{
-				"command": "formulize.helloWorld",
-				"title": "Hello World"
+				"viewType": "formulize.table",
+				"displayName": "table view",
+				"selector": [
+					{
+						"filenamePattern": "*.tex"
+					}
+				]
 			}
 		]
 	},
