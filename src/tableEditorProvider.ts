@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { SheetDto } from './transfer/sheet';
 
 export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 
@@ -49,8 +50,8 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 
 		// Receive message from the webview.
 		webviewPanel.webview.onDidReceiveMessage(e => {
-			switch (e.type) {
-			}
+			const sheetDto = e as SheetDto
+			console.log(sheetDto);
 		});
 
 		updateWebview();

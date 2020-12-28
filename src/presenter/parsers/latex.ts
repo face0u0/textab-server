@@ -1,6 +1,31 @@
 import { latexParser } from "latex-utensils";
 import { TextVO } from "../../domain/text";
-import { TableVO, SheetVO, AlignType, RowVO, ISheetFactory } from "../../domain/sheet";
+import { TableVO, SheetVO, AlignType, RowVO, ISheetFactory, ISheetWriter } from "../../domain/sheet";
+
+export class LatexSheetWriter implements ISheetWriter{
+    public write(sheet: SheetVO): TextVO {
+        const lines: Array<string> = []
+        lines.push(`\\begin{tablur}{${sheet.colAlign.map(a => this.getAlignStr(a)).join("|")}}`)
+        sheet.table.rows.forEach(row => {
+            const rowStr: Array<string> = []
+            row.cells.forEach(cell => rowStr.push(cell.value))
+            lines.push(rowStr.join(" & ")+" \\\\")
+        })
+        lines.push("\end{tabulr}\n")
+        return new TextVO(lines)
+    }
+
+    private getAlignStr(align: AlignType): string{
+        switch(align){
+            case AlignType.CENTER:
+                return 'c'
+            case AlignType.LEFT:
+                return 'l'
+            case AlignType.RIGHT:
+                return 'r'
+        }
+    }
+}
 
 export class LatexSheetFactory implements ISheetFactory {
     public create(text: TextVO): SheetVO{

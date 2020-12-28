@@ -6,6 +6,10 @@ export interface ISheetFactory{
     create(text: TextVO): SheetVO
 }
 
+export interface ISheetWriter{
+    write(sheet: SheetVO): TextVO
+}
+
 export class SheetVO {
     public readonly colAlign: ReadonlyArray<AlignType>
     public readonly table: TableVO
