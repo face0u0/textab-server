@@ -1,4 +1,4 @@
-import { TextFileVO } from "../domain/textFile";
+import { TextVO } from "../domain/text";
 import { TextDto } from "../transfer/text";
 
 export interface ITextGateway{

@@ -22,7 +22,7 @@ export class SheetConverter {
         }))
     }
 
-    public static toSheetSerialize(sheet: SheetVO): SheetDto{
+    public static toSheetDto(sheet: SheetVO): SheetDto{
         return new SheetDto(sheet.table.rows.map(row => {
             return copyArrayShallow(row.values)
         }), sheet.colAlign.map(align => {

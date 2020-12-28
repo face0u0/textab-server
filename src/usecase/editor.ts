@@ -1,5 +1,6 @@
 import { SheetVO } from "../domain/sheet";
-import { SheetDto } from "../transfer/sheet";
+import { SheetConverter, SheetDto } from "../transfer/sheet";
+import { TextConverter } from "../transfer/text";
 import { ITextGateway } from "./repository";
 
 export class SheetUseCase{
@@ -7,7 +8,7 @@ export class SheetUseCase{
     constructor(private readonly editorView: EditorView, private readonly gateway: ITextGateway){}
 
     reflectToView(sheet: SheetVO){
-        this.gateway.save()
+        const text = TextConverter.toTextVO(this.gateway.read())
     }
 
     reflectToGateway(){

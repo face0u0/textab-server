@@ -1,4 +1,4 @@
-import { TextFileVO } from "../domain/textFile";
+import { TextVO } from "../domain/text";
 import { copyArrayShallow } from "../domain/util";
 
 export class TextDto{
@@ -7,12 +7,12 @@ export class TextDto{
 
 export class TextConverter{
 
-    public static toFileDto(textFile: TextFileVO): TextDto{
+    public static toFileDto(textFile: TextVO): TextDto{
         return new TextDto(copyArrayShallow(textFile.lines))
     }
 
-    public static toTextFile(fileDto: TextDto): TextFileVO{
-        return new TextFileVO(fileDto.lines)
+    public static toTextVO(fileDto: TextDto): TextVO{
+        return new TextVO(fileDto.lines)
     }
 
 }
