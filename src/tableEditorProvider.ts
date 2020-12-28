@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 
 export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 
-    private static readonly viewType = "formulize.table"
+    private static readonly viewType = "textab.table"
 
     public static register(context: vscode.ExtensionContext): vscode.Disposable {
 		const provider = new TableEditorProvider(context);
@@ -67,10 +67,13 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 			path.join(this.context.extensionPath, 'media', 'main.js')
 		));
 		const scriptUri = webview.asWebviewUri(vscode.Uri.file(
-			path.join(this.context.extensionPath, 'media', 'a-table.min.js')
+			path.join(this.context.extensionPath, 'media', 'handsontable.full.min.js')
 		));
 		const styleMainUri = webview.asWebviewUri(vscode.Uri.file(
-			path.join(this.context.extensionPath, 'media', 'a-table.min.css')
+			path.join(this.context.extensionPath, 'media', 'handsontable.full.min.css')
+		));
+		const styleIconUri = webview.asWebviewUri(vscode.Uri.file(
+			path.join(this.context.extensionPath, 'media', 'a-table-icon.css')
 		));
 
 		return /* html */`
@@ -88,7 +91,6 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 				<div id="table"></div>
 				<script src="${scriptUri}"></script>
 				<script src="${scriptMainUri}"></script>
-
 			</body>
 			</html>`;
 	}

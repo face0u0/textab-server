@@ -1,6 +1,6 @@
 {
-	"name": "formulize",
-	"displayName": "formulize",
+	"name": "textab",
+	"displayName": "textab",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -10,13 +10,13 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCustomEditor:formulize.table"
+		"onCustomEditor:textab.table"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"customEditors": [
 			{
-				"viewType": "formulize.table",
+				"viewType": "textab.table",
 				"displayName": "table view",
 				"selector": [
 					{
