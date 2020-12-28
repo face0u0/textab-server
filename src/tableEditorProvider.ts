@@ -24,8 +24,7 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 
 		function updateWebview() {
 			webviewPanel.webview.postMessage({
-				type: 'update',
-				text: document.getText(),
+				table: [["HELLO", "HEEKKKO"]]
 			});
 		}
 
@@ -66,14 +65,14 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 		const scriptUri = webview.asWebviewUri(vscode.Uri.file(
 			path.join(this.context.extensionPath, 'media', 'bundle.js')
 		));
-		
+
 		return /* html */`
 			<!DOCTYPE html>
 			<html lang="en">
 			<head>
 				<meta charset="UTF-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>Cat Scratch</title>
+				<title>textab</title>
 			</head>
 			<body>
 				<div id="table"></div>
