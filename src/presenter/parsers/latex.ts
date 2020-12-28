@@ -1,8 +1,8 @@
 import { latexParser } from "latex-utensils";
-import { TextFile } from "../editor";
-import { TableVO, SheetVO, AlignType, RowVO, SheetFactory } from "../sheet";
+import { TextFile } from "../../domain/textFile";
+import { TableVO, SheetVO, AlignType, RowVO, ISheetFactory } from "../../domain/sheet";
 
-export class LatexSheetFactory implements SheetFactory {
+export class LatexSheetFactory implements ISheetFactory {
     public create(text: TextFile): SheetVO{
         return LatexParser.parse(text)
     }

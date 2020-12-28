@@ -1,8 +1,8 @@
-import { TextFile } from "./editor";
+import { TextFile } from "./textFile";
 import { copyArrayShallow } from "./util";
 
 
-export interface SheetFactory{
+export interface ISheetFactory{
     create(text: TextFile): SheetVO
 }
 
@@ -14,6 +14,14 @@ export class SheetVO {
         if(align.length !== table.colNum) throw new Error("align col num not eqal")
         this.colAlign = copyArrayShallow(align)
         this.table = table
+    }
+
+    public static fromStringArray(arrays: Array<Array<string>>, align: Array<AlignType>) {
+        const rows = arrays.map(array => {
+            return new RowVO(array);
+        })
+        const table = new TableVO(rows)
+        return new SheetVO(table, align)
     }
 }
 
