@@ -1,3 +1,4 @@
+import { SheetVO } from "./sheet";
 import { copyArrayShallow } from "./util";
 
 export interface IOPort{

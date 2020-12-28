@@ -1,4 +1,10 @@
+import { TextFile } from "./editor";
 import { copyArrayShallow } from "./util";
+
+
+export interface SheetFactory{
+    create(text: TextFile): SheetVO
+}
 
 export class SheetVO {
     public readonly colAlign: ReadonlyArray<AlignType>

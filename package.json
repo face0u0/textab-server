@@ -43,6 +43,6 @@
 		"vscode-test": "^1.4.1"
 	},
 	"dependencies": {
-		"latex-utensils": "^2.3.0",
+		"latex-utensils": "^2.3.0"
 	}
 }
