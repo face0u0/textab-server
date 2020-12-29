@@ -1,6 +1,11 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { ISheetFactory, ISheetWriter } from './domain/sheet';
+import { CodeGatewayInput, CodeGatewayOutput } from './gatewayCode';
+import { LatexSheetFactory, LatexSheetWriter } from './presenter/latex';
 import { SheetDto } from './transfer/sheet';
+import { ITextGatewayInput, ITextGatewayOutout } from './usecase/gateway';
+import { SheetUseCase } from './usecase/sheet';
 
 export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 
@@ -17,6 +22,12 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
         webviewPanel: vscode.WebviewPanel,
         token: vscode.CancellationToken): Promise<void> {
 
+		const gatewayInput: ITextGatewayInput = new CodeGatewayInput(document)
+		const gatewayOutput: ITextGatewayOutout = new CodeGatewayOutput(document)
+		const sheetWriter: ISheetWriter = new LatexSheetWriter()
+		const sheetFactory: ISheetFactory = new LatexSheetFactory()
+		const sheetUseCase = new SheetUseCase(sheetFactory, sheetWriter)
+
         webviewPanel.webview.options = {
             enableScripts: true,
         };
@@ -24,9 +35,7 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 		webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
 		function updateWebview() {
-			webviewPanel.webview.postMessage({
-				table: [["HELLO", "HEEKKKO"]]
-			});
+			webviewPanel.webview.postMessage(sheetUseCase.createSheetDto(gatewayInput.read()));
 		}
 
 		// Hook up event handlers so that we can synchronize the webview with the text document.
@@ -51,7 +60,7 @@ export class TableEditorProvider implements vscode.CustomTextEditorProvider {
 		// Receive message from the webview.
 		webviewPanel.webview.onDidReceiveMessage(e => {
 			const sheetDto = e as SheetDto
-			console.log(sheetDto);
+			gatewayOutput.save(sheetUseCase.createTextDto(sheetDto))
 		});
 
 		updateWebview();

@@ -1,28 +1,26 @@
 import { ISheetFactory, ISheetWriter, SheetVO } from "../domain/sheet";
 import { SheetConverter, SheetDto } from "../transfer/sheet";
-import { TextConverter } from "../transfer/text";
-import { EditorView } from "./editor";
+import { TextConverter, TextDto } from "../transfer/text";
+import { EditorController } from "./editor";
 import { ITextGatewayInput, ITextGatewayOutout } from "./gateway";
 
-export class SheetUseCase{
+export class SheetUseCase {
 
     constructor(
-        private readonly editorView: EditorView,
-        private readonly gatewayInput: ITextGatewayInput,
-        private readonly gatewayOutput: ITextGatewayOutout,
         private readonly sheetFactory: ISheetFactory,
         private readonly sheetWriter: ISheetWriter){}
 
-    reflectToView(): SheetDto{
-        const text = TextConverter.toTextVO(this.gatewayInput.read())
-        return SheetConverter.toSheetDto(this.sheetFactory.create(text))
+    createSheetDto(textDto: TextDto): SheetDto{
+        const text = TextConverter.toTextVO(textDto)
+        const sheet = this.sheetFactory.create(text)
+        return SheetConverter.toSheetDto(sheet)
     }
 
-    reflectToGateway(){
-        this.sheetWriter.write()
-        this.gatewayOutput.save()
+    createTextDto(sheetDto: SheetDto): TextDto{
+        const sheet = SheetConverter.toSheetVO(sheetDto)  
+        const text = this.sheetWriter.write(sheet)
+        return TextConverter.toFileDto(text)
     }
-
 }
 
 

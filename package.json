@@ -20,6 +20,16 @@
 				"displayName": "table view",
 				"selector": [
 					{
+						"filenamePattern": "*.table.tex"
+					}
+				]
+			},
+			{
+				"priority": "option",
+				"viewType": "textab.table",
+				"displayName": "table view",
+				"selector": [
+					{
 						"filenamePattern": "*.tex"
 					}
 				]

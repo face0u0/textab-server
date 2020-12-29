@@ -7,8 +7,8 @@ export class SheetDto{
 
 export class SheetConverter {
 
-    public static toSheetVO(SheetSerialize: SheetDto): SheetVO{
-        return SheetVO.fromStringArray(SheetSerialize.table, SheetSerialize.align.map(align => {
+    public static toSheetVO(sheetDto: SheetDto): SheetVO{
+        return SheetVO.fromStringArray(sheetDto.table, sheetDto.align.map(align => {
             switch(align){
                 case 'r':
                     return AlignType.RIGHT

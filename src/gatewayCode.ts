@@ -23,6 +23,8 @@ export class CodeGatewayOutput implements ITextGatewayOutout{
         edit.replace(
 			this.document.uri,
 			new vscode.Range(firstLine.range.start, lastLine.range.end),
-			text.lines.join("\n"))
+            text.lines.join("\n"))
+        
+        vscode.workspace.applyEdit(edit)
     }    
 }

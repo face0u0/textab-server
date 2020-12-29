@@ -1,17 +1,20 @@
 import { latexParser } from "latex-utensils";
-import { TextVO } from "../../domain/text";
-import { TableVO, SheetVO, AlignType, RowVO, ISheetFactory, ISheetWriter } from "../../domain/sheet";
+import { TextVO } from "../domain/text";
+import { TableVO, SheetVO, AlignType, RowVO, ISheetFactory, ISheetWriter } from "../domain/sheet";
 
 export class LatexSheetWriter implements ISheetWriter{
     public write(sheet: SheetVO): TextVO {
         const lines: Array<string> = []
-        lines.push(`\\begin{tablur}{${sheet.colAlign.map(a => this.getAlignStr(a)).join("|")}}`)
+        lines.push(`\\begin{tabular}{${sheet.colAlign.map(a => this.getAlignStr(a)).join("|")}}`)
+        let index = 0
         sheet.table.rows.forEach(row => {
             const rowStr: Array<string> = []
             row.cells.forEach(cell => rowStr.push(cell.value))
-            lines.push(rowStr.join(" & ")+" \\\\")
+            const isLastOfMiddle = sheet.table.rowNum === index+1
+            lines.push(rowStr.join(" & ") + (isLastOfMiddle ? " " : " \\\\"))
+            index =index+ 1
         })
-        lines.push("\end{tabulr}\n")
+        lines.push("\\end{tabular}\n")
         return new TextVO(lines)
     }
 
@@ -51,7 +54,7 @@ class LatexParser{
     }
 
     private static isTable(token: latexParser.Node): token is latexParser.Environment{
-        return token.kind === "env" && token.name === "tablur"
+        return token.kind === "env" && token.name === "tabular"
     }
 
     private static splitTokenWithBreak(tokens: latexParser.Node[]): Array<Array<latexParser.Node>>{
@@ -59,7 +62,7 @@ class LatexParser{
         let currentRow: Array<latexParser.Node> = []
         result.push(currentRow)
         tokens.forEach(token => {
-            if(token.kind === "command" && token.name === "\\\\"){
+            if(token.kind === "command" && token.name === "\\"){
                 currentRow = []
                 result.push(currentRow)
             } else {

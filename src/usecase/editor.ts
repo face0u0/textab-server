@@ -1,7 +1,7 @@
 import { SheetDto } from "../transfer/sheet";
 
 
-export interface EditorView {
+export interface EditorController {
 
     send(sheet: SheetDto): void;
 }
